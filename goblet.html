@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goblet</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="game-board">
+        <div class="game-board-square empty" id="s0"></div>
+        <div class="game-board-square empty" id="s1"></div>
+        <div class="game-board-square empty" id="s2"></div>
+        <div class="game-board-square empty" id="s3"></div>
+        <div class="game-board-square empty" id="s4"></div>
+        <div class="game-board-square empty" id="s5"></div>
+        <div class="game-board-square empty" id="s6"></div>
+        <div class="game-board-square empty" id="s7"></div>
+        <div class="game-board-square empty" id="s8"></div>
+        <div class="game-board-square empty" id="s9"></div>
+        <div class="game-board-square empty" id="s10"></div>
+        <div class="game-board-square empty" id="s11"></div>
+        <div class="game-board-square empty" id="s12"></div>
+        <div class="game-board-square empty" id="s13"></div>
+        <div class="game-board-square empty" id="s14"></div>
+        <div class="game-board-square empty" id="s15"></div>
+    </div>
+    <div class="unplayed-container">
+        <div class="unplayed-piece player1" id="u0"></div>
+        <div class="unplayed-piece player1" id="u1"></div>
+        <div class="unplayed-piece player1" id="u2"></div>
+        <div class="unplayed-piece player2" id="u3"></div>
+        <div class="unplayed-piece player2" id="u4"></div>
+        <div class="unplayed-piece player2" id="u5"></div>
+    </div>
+    <!--  load script at the end so a document ready call isn't needed  -->
+    <script type="text/javascript" src="goblet_model.js"></script>
+    <script type="text/javascript" src="goblet_controller.js"></script>
+    <script type="text/javascript" src="goblet_view.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>
