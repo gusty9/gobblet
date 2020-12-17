@@ -35,11 +35,91 @@ class GameBoard {
     place_piece(index, value, z) {
         this.board_spaces[index].place_piece(value, z);
         this.update_view();
+        this.check_winner()
     }
 
     //check if there is a winner, report who the winner is
     check_winner() {
-        //todo
+        //check all horizontal
+        let player_won = false;
+        let winner;
+        let where_string;
+        if (this.check_winner_row(0)) {
+            player_won = true;
+            winner = this.board_spaces[0].get_top();
+            where_string = 'on row 1';
+        } else if (this.check_winner_row(4)) {
+            player_won = true;
+            winner = this.board_spaces[4].get_top();
+            where_string = 'on row 2';
+        } else if (this.check_winner_row(8)) {
+            player_won = true;
+            winner = this.board_spaces[8].get_top();
+            where_string = 'on row 3';
+        } else if (this.check_winner_row(12)) {
+            player_won = true;
+            winner = this.board_spaces[12].get_top();
+            where_string = 'on row 4';
+        }
+        //check all vertical
+        else if (this.check_winner_column(0)) {
+            player_won = true;
+            winner = this.board_spaces[0].get_top();
+            where_string = 'on column 1';
+        } else if (this.check_winner_column(1)) {
+            player_won = true;
+            winner = this.board_spaces[1].get_top();
+            where_string = 'on column 2';
+        } else if (this.check_winner_column(2)) {
+            player_won = true;
+            winner = this.board_spaces[2].get_top();
+            where_string = 'on column 3';
+        } else if (this.check_winner_column(3)) {
+            player_won = true;
+            winner = this.board_spaces[3].get_top();
+            where_string = 'on column 4';
+        }
+        //check diagonals
+        else if (this.check_winner_diagonal_left(0)) {
+            player_won = true;
+            winner = this.board_spaces[0].get_top();
+            where_string = 'on the top left diagonal';
+        } else if (this.check_winner_diagonal_right(3)) {
+            player_won = true;
+            winner = this.board_spaces[3].get_top();
+            where_string = 'on the top right diagonal';
+        }
+        if (player_won) {
+            alert(`Player ${winner} won ${where_string}`)
+        }
+    }
+
+    check_winner_row(start_index) {
+        return (this.board_spaces[start_index + 0].get_top() === this.board_spaces[start_index + 1].get_top()
+            && this.board_spaces[start_index + 1].get_top() === this.board_spaces[start_index + 2].get_top()
+            && this.board_spaces[start_index + 2].get_top() === this.board_spaces[start_index + 3].get_top()
+            && this.board_spaces[start_index + 0].get_top()>0);
+    }
+
+    check_winner_column(start_index) {
+        return (this.board_spaces[start_index + 0].get_top() === this.board_spaces[start_index + 4].get_top()
+            && this.board_spaces[start_index + 4].get_top() === this.board_spaces[start_index + 8].get_top()
+            && this.board_spaces[start_index + 8].get_top() === this.board_spaces[start_index + 12].get_top()
+            && this.board_spaces[start_index + 0].get_top()>0);
+    }
+
+    check_winner_diagonal_left(start_index) {
+        return (this.board_spaces[start_index + 0].get_top() === this.board_spaces[start_index + 5].get_top()
+            && this.board_spaces[start_index + 5].get_top() === this.board_spaces[start_index + 10].get_top()
+            && this.board_spaces[start_index + 10].get_top() === this.board_spaces[start_index + 15].get_top()
+            && this.board_spaces[start_index + 0].get_top()>0);
+    }
+
+    check_winner_diagonal_right(start_index) {
+        return (this.board_spaces[start_index + 0].get_top() === this.board_spaces[start_index + 3].get_top()
+            && this.board_spaces[start_index + 3].get_top() === this.board_spaces[start_index + 6].get_top()
+            && this.board_spaces[start_index + 6].get_top() === this.board_spaces[start_index + 9].get_top()
+            && this.board_spaces[start_index + 0].get_top()>0);
     }
 
     pass_view(goblet_view) {
@@ -47,7 +127,6 @@ class GameBoard {
     }
 
     update_view() {
-        console.log('view being update');
         //update the board squares
         for (let i = 0; i < this.board_spaces.length; i++) {
             this.goblet_view.board_spaces[i].innerHTML = `${this.board_spaces[i].get_top_index() + 1}`;

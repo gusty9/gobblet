@@ -16,7 +16,6 @@ class GobletController {
             if (this.game_board.board_spaces[index].get_top_index() < this.selected.index) {
                 //the piece is larger and can be placed
                 this.game_board.place_piece(index, this.current_player, this.selected.index);
-                //todo check for a win
                 this.selected = {
                     selected: false,
                     index: -1
