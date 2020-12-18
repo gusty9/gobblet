@@ -1,5 +1,6 @@
 class GameBoardView {
     constructor(goblet_controller) {
+        //bind the board views
         this.board_spaces = [
             document.querySelector('#s0'),
             document.querySelector('#s1'),
@@ -23,6 +24,7 @@ class GameBoardView {
                 goblet_controller.on_board_space_click(i);
             });
         }
+        //bind the reserve space views
         this.reserve_spaces = [
             document.querySelector('#u0'),
             document.querySelector('#u1'),
@@ -36,5 +38,7 @@ class GameBoardView {
                 goblet_controller.on_reserve_space_click(i);
             });
         }
+        //bind the view for the player spaces
+        this.player_turn = document.querySelector('#player_num');
     }
 }

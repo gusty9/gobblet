@@ -3,6 +3,7 @@ class GameBoard {
         this.goblet_view = null;
         this.board_spaces = [];
         this.reserve_spaces = [];
+        this.current_player = 1;
         //set up the empty game board
         for (let i = 0; i < num_spaces; i++) {
             this.board_spaces[i] = new GameSpot(num_per_stack, 0);
@@ -27,14 +28,12 @@ class GameBoard {
         } else {
             ret = this.board_spaces[index].remove_top();
         }
-        this.update_view()
         return ret;
     }
 
     //add the top piece of a GameSpot
     place_piece(index, value, z) {
         this.board_spaces[index].place_piece(value, z);
-        this.update_view();
         this.check_winner()
     }
 
@@ -153,6 +152,7 @@ class GameBoard {
         for (let i = 0; i < this.reserve_spaces.length; i++) {
             this.goblet_view.reserve_spaces[i].innerHTML = `${this.reserve_spaces[i].get_top_index() + 1}`;
         }
+        this.goblet_view.player_turn.innerHTML = `${this.current_player}`
     }
 }
 
