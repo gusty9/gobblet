@@ -4,6 +4,7 @@ class GameBoard {
         this.board_spaces = [];
         this.reserve_spaces = [];
         this.current_player = 1;
+        this.selected_piece = null;
         //set up the empty game board
         for (let i = 0; i < num_spaces; i++) {
             this.board_spaces[i] = new GameSpot(num_per_stack, 0);
@@ -32,9 +33,33 @@ class GameBoard {
     }
 
     //add the top piece of a GameSpot
-    place_piece(index, value, z) {
-        this.board_spaces[index].place_piece(value, z);
+    place_piece(index) {
+        this.board_spaces[index].place_piece(this.selected_piece.get_top(), this.selected_piece.remove_top());
+        //clear the selected piece
+        for (let i = 0; i < this.board_spaces.length; i++) {
+            this.board_spaces[i].selected = false;
+        }
+        for (let i = 0; i < this.reserve_spaces.length; i++) {
+            this.reserve_spaces[i].selected = false;
+        }
+        this.selected_piece = null;
+        //todo use modules or something smarter here
+        if (this.current_player === 1) {
+            this.current_player = 2;
+        } else {
+            this.current_player = 1;
+        }
         this.check_winner()
+    }
+
+    select_piece(index, reserve) {
+        if (reserve) {
+            this.selected_piece = this.reserve_spaces[index];
+            this.reserve_spaces[index].selected = true;
+        } else {
+            this.selected_piece = this.board_spaces[index];
+            this.board_spaces[index].selected = true;
+        }
     }
 
     //check if there is a winner, report who the winner is
@@ -147,10 +172,31 @@ class GameBoard {
                     this.goblet_view.board_spaces[i].classList.add('player2');
                     break;
             }
+            if (this.board_spaces[i].selected) {
+                this.goblet_view.board_spaces[i].classList.remove('empty');
+                this.goblet_view.board_spaces[i].classList.remove('player1');
+                this.goblet_view.board_spaces[i].classList.remove('player2');
+                this.goblet_view.board_spaces[i].classList.add('selected');
+            } else {
+                this.goblet_view.board_spaces[i].classList.remove('selected');
+            }
         }
 
         for (let i = 0; i < this.reserve_spaces.length; i++) {
             this.goblet_view.reserve_spaces[i].innerHTML = `${this.reserve_spaces[i].get_top_index() + 1}`;
+            if (this.reserve_spaces[i].selected) {
+                this.goblet_view.reserve_spaces[i].classList.remove('empty');
+                this.goblet_view.reserve_spaces[i].classList.remove('player1');
+                this.goblet_view.reserve_spaces[i].classList.remove('player2');
+                this.goblet_view.reserve_spaces[i].classList.add('selected');
+            } else {
+                this.goblet_view.reserve_spaces[i].classList.remove('selected');
+                if (i > 2) {
+                    this.goblet_view.reserve_spaces[i].classList.add('player2');
+                } else {
+                    this.goblet_view.reserve_spaces[i].classList.add('player1');
+                }
+            }
         }
         this.goblet_view.player_turn.innerHTML = `${this.current_player}`
     }
@@ -162,6 +208,7 @@ class GameSpot {
         for (let i = 0; i < num_per_stack; i++) {
             this.gamespot[i] = initial_value;
         }
+        this.selected = false;
     }
 
     //removes the top piece from the stack if there is one
