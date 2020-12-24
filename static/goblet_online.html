@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Local 2 Player</title>
+    <title>Online Game</title>
     <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
+
     <div class="game-board">
         <div class="game-board-square empty" id="s0"></div>
         <div class="game-board-square empty" id="s1"></div>
@@ -36,11 +36,10 @@
     <div>
         <h3>Player <span id="player_num">1</span>'s turn</h3>
     </div>
-
-    <!--  load script at the end so a document ready call isn't needed  -->
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="goblet_model.js"></script>
-    <script type="text/javascript" src="goblet_controller.js"></script>
+    <script type="text/javascript" src="goblet_online_controller.js"></script>
     <script type="text/javascript" src="goblet_view.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="online_main.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ class GameBoard {
         this.reserve_spaces = [];
         this.current_player = 1;
         this.selected_piece = null;
-        this.players = [];
+        this.players = [];//array to store the 2 players socket-ids
         //set up the empty game board
         for (let i = 0; i < num_spaces; i++) {
             this.board_spaces[i] = new GameSpot(num_per_stack, 0);
@@ -247,3 +247,5 @@ class GameSpot {
         return -1;
     }
 }
+
+module.exports = GameBoard;
