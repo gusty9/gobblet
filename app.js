@@ -9,7 +9,7 @@ const port = 8080;
 app.use(express.static('static'));
 
 //variables for the games
-const GameBoard = require('./goblet_model.js');
+const GameBoard = require('./static/goblet_model.js');
 let games = new Map();
 
 /**
@@ -22,12 +22,13 @@ app.get('/', (req, res) => {
 app.get('/create', (req, res) => {
     let id = makeid(4);
     games[id] = new GameBoard(16, 6, 4);
+
     res.redirect(`${id}`);
 });
 
 app.get('/:game_id', (req, res) => {
     console.log(req.params);
-    res.sendFile(path.join(__dirname + '/static/goblet_online.html'));
+    res.sendFile(path.join(__dirname + '/static/goblet.html'));
 });
 
 io.on('connection', socket => {
@@ -38,6 +39,13 @@ server.listen(port, () => {
     console.log(`App listening on port ${port}`);
 });
 
+/**
+ * Return a new random 4 letter room code
+ * @param length
+ *          Length of the requested id
+ * @returns {string}
+ *          A string room code
+ */
 function makeid(length) {
     let result = '';
     let chars = 'abcdefghijklmnopqrstuvwxyz';

@@ -247,3 +247,7 @@ class GameSpot {
         return -1;
     }
 }
+
+if (typeof window == 'undefined' || !window.document) {
+    module.exports = GameBoard;
+}
