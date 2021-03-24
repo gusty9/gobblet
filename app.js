@@ -32,7 +32,7 @@ app.get('/:game_id', (req, res) => {
 });
 
 io.on('connection', socket => {
-    //console.log('connected!');
+    console.log('connected!');
 });
 
 server.listen(port, () => {
